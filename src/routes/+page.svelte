@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import BoardElement from '../components/board_element.svelte';
+  import { nextPlayerName } from '../shared/player_turns.svelte';
 
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
@@ -41,6 +42,8 @@
 
 <h1>Tauri checkers</h1>
 
+<h2>Next player: {nextPlayerName()}</h2>
+
 <main class="container">
   {#each board as row, i}
     <div class="row">
@@ -60,6 +63,12 @@
 
     color: #0f0f0f;
     background-color: #f6f6f6;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
   }
 
   .container {
@@ -71,7 +80,8 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    border: 12px double #f6f6f6;
+    border: 10px solid #000;
+    border-radius: 20px;
   }
 
   .row {
@@ -79,8 +89,8 @@
     justify-content: center;
   }
 
-  h1 {
-    font-weight: bold;
+  h1,
+  h2 {
     text-align: center;
   }
 

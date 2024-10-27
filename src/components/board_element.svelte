@@ -6,15 +6,11 @@
   class="col"
   class:col-foreground={!col.is_background}
 >
-  <span>
-    <div
-      class:player={col.player}
-      class:white={col.player == 'white'}
-      class:black={col.player == 'black'}
-    ></div>
-    <!-- {col.position.x},
-    {col.position.y} -->
-  </span>
+  <div
+    class:player={col.player}
+    class:white={col.player == 'white'}
+    class:black={col.player == 'black'}
+  ></div>
 </div>
 
 <style>
@@ -30,7 +26,7 @@
   }
 
   .col-foreground {
-    background-color: #966919;
+    background-color: #483c32;
     color: white;
   }
 
