@@ -8,17 +8,27 @@
 
   function draw_board() {
     let is_background = true;
+    let player = '';
     board.fill([]);
 
     for (let i = 0; i < 8; i++) {
       is_background = !is_background;
 
+      if (i < 3) {
+        player = 'white';
+      } else if (i >= 5) {
+        player = 'black';
+      } else {
+        player = '';
+      }
+
       for (let j = 0; j < 8; j++) {
         is_background = !is_background;
 
         board[i][j] = {
-          is_background: !is_background,
-          player: 'white'
+          is_background: is_background,
+          player: !is_background ? player : '',
+          position: { x: i, y: j }
         };
       }
     }
@@ -35,10 +45,7 @@
   {#each board as row, i}
     <div class="row">
       {#each row as col, j}
-        <BoardElement
-          {...col}
-          positions={[i, j]}
-        />
+        <BoardElement {col} />
       {/each}
     </div>
   {/each}
@@ -53,12 +60,6 @@
 
     color: #0f0f0f;
     background-color: #f6f6f6;
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
   }
 
   .container {
@@ -70,7 +71,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    border: 10px double #f6f6f6;
+    border: 12px double #f6f6f6;
   }
 
   .row {
