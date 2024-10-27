@@ -16,9 +16,9 @@
       is_background = !is_background;
 
       if (i < 3) {
-        player = 'white';
-      } else if (i >= 5) {
         player = 'black';
+      } else if (i >= 5) {
+        player = 'white';
       } else {
         player = '';
       }
@@ -56,11 +56,6 @@
 
 <style>
   :root {
-    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 400;
-
     color: #0f0f0f;
     background-color: #f6f6f6;
 
@@ -69,13 +64,16 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .container {
     height: auto;
     width: fit-content;
     margin: 0 auto;
-    margin-top: 10vh;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;

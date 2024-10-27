@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "Tauri Checkers",
-        "width": 1000,
-        "height": 1000
+        "width": 800,
+        "height": 900
       }
     ],
     "security": {

@@ -16,13 +16,11 @@
 <style>
   .col {
     margin: 2px;
+    padding: 10px;
     background-color: #f6f6f6;
     color: black;
-    height: 80px;
-    width: 80px;
-    line-height: 120px;
-    user-select: none;
-    -webkit-user-select: none;
+    height: 60px;
+    width: 60px;
   }
 
   .col-foreground {
@@ -31,8 +29,8 @@
   }
 
   .player {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 30px;
     margin: 10px auto;
     box-shadow: 0px 0px 10px #ffffff;
