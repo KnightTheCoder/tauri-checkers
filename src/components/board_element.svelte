@@ -9,7 +9,7 @@
   function clickElement() {
     if (col.is_background) return;
 
-    movePiece(col.player, col.position, issueMovement, col.canGoBackwards);
+    movePiece(col.player, col.position, issueMovement, col.isKing);
   }
 </script>
 
@@ -20,11 +20,15 @@
   class:col-foreground={!col.is_background}
   onclick={clickElement}
 >
-  <div
-    class:player={col.player}
-    class:white={col.player == 'white'}
-    class:black={col.player == 'black'}
-  ></div>
+  {#if !col.is_background && col.player}
+    <div
+      class="player"
+      class:white={col.player == 'white'}
+      class:black={col.player == 'black'}
+    >
+      <div class:king={col.isKing}></div>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -48,6 +52,15 @@
     border-radius: 30px;
     margin: 10px auto;
     box-shadow: 0px 0px 10px #ffffff;
+  }
+
+  .king {
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    background-color: gray;
   }
 
   .white {

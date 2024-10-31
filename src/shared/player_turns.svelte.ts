@@ -12,4 +12,8 @@ function getNextPlayerName() {
   return nextPlayerName_derived();
 }
 
-export { nextPlayer, getNextPlayerName };
+function resetTurns() {
+  isWhiteNext = true;
+}
+
+export { nextPlayer, getNextPlayerName, resetTurns };

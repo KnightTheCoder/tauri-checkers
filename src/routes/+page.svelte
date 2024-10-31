@@ -1,7 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import BoardElement from '../components/board_element.svelte';
-  import { getNextPlayerName, nextPlayer } from '../shared/player_turns.svelte';
+  import {
+    getNextPlayerName,
+    nextPlayer,
+    resetTurns
+  } from '../shared/player_turns.svelte';
   import {
     getMovementStatus,
     movePiece,
@@ -35,7 +39,7 @@
           is_background: is_background,
           player: !is_background ? player : '',
           position: { x: i, y: j },
-          canGoBackwards: false
+          isKing: false
         };
       }
     }
@@ -44,31 +48,43 @@
   function reset_game() {
     draw_board();
     resetAll();
+    resetTurns();
   }
 
   onMount(() => {
-    draw_board();
+    reset_game();
   });
 
-  function issueMovement(canGoBackwards: boolean) {
+  function issueMovement() {
     let movement = getMovementStatus();
     let from = movement.from;
     let to = movement.to;
 
+    let nextPlayerName = getNextPlayerName();
+
     if (!from || !to) return;
+
+    let reachedEnd = from?.isKing;
+
+    if (
+      (to.position.x == 0 && nextPlayerName == 'white') ||
+      (to.position.x == 7 && nextPlayerName == 'black')
+    ) {
+      reachedEnd = true;
+    }
 
     board[from.position.x][from.position.y] = {
       is_background: false,
       player: '',
       position: from.position,
-      canGoBackwards
+      isKing: from.isKing
     };
 
     board[to.position.x][to.position.y] = {
       is_background: false,
       player: from.player,
       position: to.position,
-      canGoBackwards
+      isKing: reachedEnd
     };
 
     nextPlayer();
