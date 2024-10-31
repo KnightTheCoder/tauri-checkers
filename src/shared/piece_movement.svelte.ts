@@ -1,5 +1,4 @@
 import { getNextPlayerName } from './player_turns.svelte';
-import { abs } from './utils';
 
 let movement: MovementType = $state({
   from: null,
@@ -37,42 +36,23 @@ function movePiece(
       y: movement.from.position.y - movement.to.position.y
     };
 
-    // Don't move more than 1 in any direction
-    if (abs(moveDistance.x) > 1 || abs(moveDistance.y) > 1) {
-      resetTo();
-    }
-
     // X is vertical axis, only 1 directional movement is checked
     if (movement.from.isKing) {
       issueMovement();
-      resetAll();
-
-      return;
     } else if (
       (moveDistance.x == 1 && nextPlayer == 'white') ||
       (moveDistance.x == -1 && nextPlayer == 'black')
     ) {
       issueMovement();
-      resetAll();
-
-      return;
     }
 
-    resetTo();
+    resetAll();
   }
 }
 
-function resetFrom() {
-  movement.from = null;
-}
-
-function resetTo() {
-  movement.to = null;
-}
-
 function resetAll() {
-  resetFrom();
-  resetTo();
+  movement.from = null;
+  movement.to = null;
 }
 
 function getMovementStatus() {

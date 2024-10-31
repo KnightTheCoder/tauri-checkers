@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import BoardElement from '../components/board_element.svelte';
+  import { getBoardStatus, draw_board } from '../shared/board_logic.svelte';
   import {
     getNextPlayerName,
     nextPlayer,
@@ -14,36 +15,7 @@
 
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
-  let board: BoardElementType[][] = $state(new Array(8));
-
-  function draw_board() {
-    let is_background = true;
-    let player = '';
-    board.fill([]);
-
-    for (let i = 0; i < 8; i++) {
-      is_background = !is_background;
-
-      if (i < 3) {
-        player = 'black';
-      } else if (i >= 5) {
-        player = 'white';
-      } else {
-        player = '';
-      }
-
-      for (let j = 0; j < 8; j++) {
-        is_background = !is_background;
-
-        board[i][j] = {
-          is_background: is_background,
-          player: !is_background ? player : '',
-          position: { x: i, y: j },
-          isKing: false
-        };
-      }
-    }
-  }
+  let board: BoardElementType[][] = getBoardStatus();
 
   function reset_game() {
     draw_board();
@@ -64,7 +36,7 @@
 
     if (!from || !to) return;
 
-    let reachedEnd = from?.isKing;
+    let reachedEnd = from.isKing;
 
     if (
       (to.position.x == 0 && nextPlayerName == 'white') ||
