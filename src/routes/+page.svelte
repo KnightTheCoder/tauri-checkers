@@ -1,7 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import BoardElement from '../components/board_element.svelte';
-  import { nextPlayerName } from '../shared/player_turns.svelte';
+  import { getNextPlayerName, nextPlayer } from '../shared/player_turns.svelte';
+  import {
+    getMovementStatus,
+    movePiece,
+    resetAll
+  } from '../shared/piece_movement.svelte';
 
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
@@ -29,26 +34,66 @@
         board[i][j] = {
           is_background: is_background,
           player: !is_background ? player : '',
-          position: { x: i, y: j }
+          position: { x: i, y: j },
+          canGoBackwards: false
         };
       }
     }
   }
 
+  function reset_game() {
+    draw_board();
+    resetAll();
+  }
+
   onMount(() => {
     draw_board();
   });
+
+  function issueMovement(canGoBackwards: boolean) {
+    let movement = getMovementStatus();
+    let from = movement.from;
+    let to = movement.to;
+
+    if (!from || !to) return;
+
+    board[from.position.x][from.position.y] = {
+      is_background: false,
+      player: '',
+      position: from.position,
+      canGoBackwards
+    };
+
+    board[to.position.x][to.position.y] = {
+      is_background: false,
+      player: from.player,
+      position: to.position,
+      canGoBackwards
+    };
+
+    nextPlayer();
+  }
 </script>
 
 <h1>Tauri checkers</h1>
 
-<h2>Next player: {nextPlayerName()}</h2>
+<h2>Next player: {getNextPlayerName()}</h2>
+
+<button
+  style="margin: 0 auto; display: block"
+  onclick={reset_game}
+  >End Game
+</button>
 
 <main class="container">
   {#each board as row, i}
     <div class="row">
       {#each row as col, j}
-        <BoardElement {col} />
+        <BoardElement
+          {col}
+          {movePiece}
+          {issueMovement}
+        />
       {/each}
     </div>
   {/each}
@@ -56,8 +101,8 @@
 
 <style>
   :root {
-    color: #0f0f0f;
-    background-color: #f6f6f6;
+    color: #f6f6f6;
+    background-color: #2f2f2f;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -92,10 +137,9 @@
     text-align: center;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      color: #f6f6f6;
-      background-color: #2f2f2f;
-    }
+  button {
+    color: #f6f6f6;
+    background-color: #2f2f2f;
+    border-radius: 20px;
   }
 </style>

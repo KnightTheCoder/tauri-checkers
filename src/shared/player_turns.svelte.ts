@@ -8,8 +8,8 @@ let nextPlayerName_derived = $derived(() => {
   return isWhiteNext ? 'white' : 'black';
 });
 
-function nextPlayerName() {
+function getNextPlayerName() {
   return nextPlayerName_derived();
 }
 
-export { nextPlayer, nextPlayerName };
+export { nextPlayer, getNextPlayerName };

@@ -1,10 +1,24 @@
 <script lang="ts">
-  let { col }: { col: BoardElementType } = $props();
+  let {
+    col,
+    movePiece,
+    issueMovement
+  }: { col: BoardElementType; movePiece: Function; issueMovement: Function } =
+    $props();
+
+  function clickElement() {
+    if (col.is_background) return;
+
+    movePiece(col.player, col.position, issueMovement, col.canGoBackwards);
+  }
 </script>
 
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
   class="col"
   class:col-foreground={!col.is_background}
+  onclick={clickElement}
 >
   <div
     class:player={col.player}
