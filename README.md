@@ -2,7 +2,8 @@
 
 Checkers made with tauri and sveltekit (Svelte 5) using the new runes with typescript
 
-> [!NOTE]To bundle successfully
+> [!NOTE]
+> To bundle successfully
 >
 > ```bash
 > NO_STRIP=true pnpm tauri build
