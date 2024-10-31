@@ -1,15 +1,11 @@
-# Tauri + SvelteKit + TypeScript
+# Tauri Checkers
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+Checkers made with tauri and sveltekit (Svelte 5) using the new runes with typescript
 
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
-
-To bundle successfully
-
-```bash
-NO_STRIP=true pnpm tauri build
-```
-
-when building the app, it's needed for appimage to work, but will result in a huge file
+> [!NOTE]To bundle successfully
+>
+> ```bash
+> NO_STRIP=true pnpm tauri build
+> ```
+>
+> When building the app, it's needed for appimage to work, but will result in a huge file
