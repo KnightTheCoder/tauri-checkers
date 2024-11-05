@@ -22,8 +22,6 @@
 
 <h1>Tauri checkers</h1>
 
-{gameStatus().left}
-
 {#if gameStatus().isOver}
   <h2>{gameStatus().winner} won!</h2>
 {:else}

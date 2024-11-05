@@ -64,8 +64,7 @@ let isGameOver = $derived(() => {
 
   return {
     isOver: winner != '',
-    winner,
-    left: status.white + status.black
+    winner
   };
 });
 
