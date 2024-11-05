@@ -29,8 +29,52 @@ function draw_board() {
   }
 }
 
+let isGameOver = $derived(() => {
+  let winner = '';
+
+  let status = {
+    empty: 0,
+    white: 0,
+    black: 0
+  };
+
+  board.forEach((row) =>
+    row.forEach((col) => {
+      switch (col.player) {
+        case 'white':
+          status.white++;
+          break;
+
+        case 'black':
+          status.black++;
+          break;
+
+        default:
+          status.empty++;
+          break;
+      }
+    })
+  );
+
+  if (status.white == 0) {
+    winner = 'black';
+  } else if (status.black == 0) {
+    winner = 'white';
+  }
+
+  return {
+    isOver: winner != '',
+    winner,
+    left: status.white + status.black
+  };
+});
+
 function getBoardStatus(): BoardElementType[][] {
   return board;
 }
 
-export { getBoardStatus, draw_board };
+function getGameStatus() {
+  return isGameOver();
+}
+
+export { getBoardStatus, draw_board, getGameStatus };

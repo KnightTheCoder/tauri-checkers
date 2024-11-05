@@ -1,14 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import BoardElement from '../components/board_element.svelte';
-  import { getBoardStatus, draw_board } from '../shared/board_logic.svelte';
+  import { draw_board, getGameStatus } from '../shared/board_logic.svelte';
   import { getNextPlayerName, resetTurns } from '../shared/player_turns.svelte';
-  import { movePiece, resetAll } from '../shared/piece_movement.svelte';
+  import { resetAll } from '../shared/piece_movement.svelte';
   import GameBoard from '../components/game_board.svelte';
 
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 
-  let board = getBoardStatus();
+  let gameStatus = $derived(() => getGameStatus());
 
   function reset_game() {
     draw_board();
@@ -23,7 +22,13 @@
 
 <h1>Tauri checkers</h1>
 
-<h2>Next player: {getNextPlayerName()}</h2>
+{gameStatus().left}
+
+{#if gameStatus().isOver}
+  <h2>{gameStatus().winner} won!</h2>
+{:else}
+  <h2>Next player: {getNextPlayerName()}</h2>
+{/if}
 
 <button
   style="margin: 0 auto; display: block"
