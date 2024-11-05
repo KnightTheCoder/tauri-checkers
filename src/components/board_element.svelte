@@ -1,15 +1,11 @@
 <script lang="ts">
-  let {
-    col,
-    movePiece,
-    issueMovement
-  }: { col: BoardElementType; movePiece: Function; issueMovement: Function } =
+  let { col, movePiece }: { col: BoardElementType; movePiece: Function } =
     $props();
 
   function clickElement() {
     if (col.is_background) return;
 
-    movePiece(col.player, col.position, issueMovement, col.isKing);
+    movePiece(col.player, col.position, col.isKing);
   }
 </script>
 
